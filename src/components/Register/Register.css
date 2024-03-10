@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: bisque;
+    background-color: #667eea;
 
   }
   .register__container {
@@ -47,7 +47,7 @@
     border: none;
     border-radius: 4px;
     color: white;
-    background-color: #00ff37;
+    background-color: #007bff;
     cursor: pointer;
   }
   .register__google {
