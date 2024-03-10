@@ -1,8 +1,8 @@
 // HomePage.js
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, db, logout } from "../../../backend/firebase";
+import { auth, db, logout, storage } from "../../../backend/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import './HomePage.css';
 
@@ -12,6 +12,7 @@ function HomePage() {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   const fetchUserName = async () => {
     try {
@@ -33,6 +34,25 @@ function HomePage() {
     if (!user) return navigate("/");
     fetchUserName();
   }, [user, loading]);
+
+
+  const handleUpload = async (event) => {
+    try {
+      if (!user) return; // Ensure user is logged in
+
+      const file = event.target.files[0]; // Get the uploaded file
+      const storageRef = storage.ref(); // Reference to the root of Firebase Storage
+
+      const fileRef = storageRef.child(file.name); // Create a reference to the file
+      await fileRef.put(file); // Upload the file to Firebase Storage
+
+      console.log("File uploaded successfully!");
+      // You can add additional logic here, like updating the user's profile with the uploaded file URL
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
 
   return (
     <div className="dashboard">
@@ -76,9 +96,20 @@ function HomePage() {
           <h2 className="or">or</h2>
 
 
-          <button className="w-60 h-15 text-[30px] ml-14 mt-10 bg-zinc-800 text-white">
-            Upload
-          </button>
+        {/* Input element for file upload */}
+         <input
+          type="file"
+          accept="image/*" // Specify the file types you want to allow for upload
+          onChange={handleUpload}
+          style={{ display: "none" }} // Hide the input visually
+          ref={fileInputRef} // Ref to the file input element**
+        />
+        <button 
+        className="w-60 h-15 text-[30px] ml-14 mt-10 bg-zinc-800 text-white"
+        onClick={() => fileInputRef.current.click()}
+        >
+          Upload File
+        </button>
 
         </div>
 
