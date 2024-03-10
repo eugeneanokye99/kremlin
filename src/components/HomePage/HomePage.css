@@ -1,25 +1,94 @@
+.patient__textBox{
+    width: 330px;
+    height: 50px;
+    border-radius: 8px;
+    font-size: 22px;
+    padding: 0 10px;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+.patient__textBox input:focus{
+    border: 1px solid black;
+}
+
+
 .dashboard {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .dashboard__container {
+    background: linear-gradient(135deg, #667eea, #fff); /* Gradient background */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    text-align: center;
-    background-color: #dcdcdc;
-    padding: 30px;
-  }
-  .dashboard__btn {
-    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    animation: gradientAnimation 10s ease infinite alternate; /* Gradient animation */
+}
+
+.dashboard__container {
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Define gradient animation */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Text animation */
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Apply text animation */
+.dashboard h1, .dashboard input, .dashboard button {
+    animation: slideInFromLeft 1s ease;
+}
+
+  
+  .menu {
+    position: absolute;
+    top: 40px; 
+    right: 20px; 
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     font-size: 18px;
-    margin-top: 10px;
+  }
+  
+  .menu button {
+    display: block;
+    width: 100%;
+    padding: 10px;
     border: none;
-    color: white;
-    background-color: black;
+    background-color: transparent;
+    cursor: pointer;
   }
-  .dashboard div {
-    margin-top: 7px;
+  
+  .menu button:hover {
+    background-color: #f0f0f0;
   }
+
+.or{
+    font-size: 22px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.or::after{
+    content: "   --------------";
+} 
+
+
+.or::before{
+    content: "--------------   ";
+} 
+
